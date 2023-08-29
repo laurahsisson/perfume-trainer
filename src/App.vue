@@ -47,8 +47,8 @@ function selectCard(card, index) {
         <h1 v-else>Learn about {{selected.notes.join(", ")}} notes.</h1>
     </div>
     <div class="grid">
-        <Notes class="col-6 surface-card shadow-2" @select-note="selectNote" :selected="selected"></Notes>
-        <Grid class="col-6 surface-card shadow-2" @select-card="selectCard" :selected="selected"></Grid>
+    <!--     <Notes class="col-6 surface-card shadow-2" @select-note="selectNote" :selected="selected"></Notes>
+        <Grid class="col-6 surface-card shadow-2" @select-card="selectCard" :selected="selected"></Grid> -->
     </div>
 </template>
 <style scoped>
