@@ -18,11 +18,11 @@ const notes = [
 </script>
 
 <template>
-    <ul style="list-style-type: none">
-        <li class="note text-2xl" v-for="(n,index) in notes" @click="$emit('select-note',n.note)">
+    <div class="flex flex-column">
+        <div class="flex text-2xl" v-for="(n,index) in notes" @click="$emit('select-note',n.note)">
             <Button :class="{'p-button-text':!selected.notes.includes(n.note)}" raised>{{n.emoji}} {{n.note}} {{n.emoji}}</Button>
-        </li>
-    </ul>
+        </div>
+    </div>
 </template>
 <style scoped>
 </style>
