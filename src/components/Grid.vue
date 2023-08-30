@@ -10,12 +10,6 @@ const cards = [
     { name: "Pepper", notes: ["Spicy"] },
     { name: "Apple", notes: ["Fruity"] }
 ]
-const numberOfColumns = 3
-
-// https://stackoverflow.com/questions/52067287/how-to-create-a-dynamic-grid-using-vue
-const gridStyle = {
-    gridTemplateColumns: `repeat(${numberOfColumns}, minmax(100px, 1fr))`
-}
 
 function notesMatches(selected, card) {
     for (var i = card.notes.length - 1; i >= 0; i--) {
@@ -29,40 +23,20 @@ function notesMatches(selected, card) {
 function calculateColor(selected, card, index) {
     if (selected.isCard) {
         if (selected.card.name == card.name) {
-            return { 'background-color': 'LightGreen' }
+            return 'LightGreen';
         }
     } else if (notesMatches(selected, card)) {
-        return { 'background-color': 'dodgerblue' }
+        return 'dodgerblue';
     }
-    return { 'background-color': 'lightgrey' }
+    return 'lightgrey';
 }
-
 </script>
 <template>
     <div class="grid">
-        <div class="col-4" v-for="(card, index) in cards" @click="$emit('select-card',card,index)">
-            <Button text :style="[calculateColor(selected,card,index)]">Card={{card.name}} w/ {{ index + 1 }}</Button>
+        <div class="col-4" v-for="card in cards">
+            <Button text :style="[{ 'background-color':calculateColor(selected,card)}]" @click="$emit('select-card',card,index)" class="w-full"> {{card.name}}</Button>
         </div>
     </div>
-    <!-- <ul :style="gridStyle" class="card-list">
-        <li v-for="(card, index) in cards" class="card-item" @click="$emit('select-card',card,index)">
-            <Button text :style="[calculateColor(selected,card,index)]">Card={{card.name}} w/ {{ index + 1 }}</Button>
-        </li>
-    </ul> -->
 </template>
 <style scoped>
-.card-list {
-    display: grid;
-    grid-gap: 1em;
-}
-
-/*
-button {
-    width: 3em;
-    height: 3em;
-}*/
-
-ul {
-    list-style-type: none;
-}
 </style>

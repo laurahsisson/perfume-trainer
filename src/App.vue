@@ -3,7 +3,9 @@ import { ref } from 'vue'
 
 import Grid from './components/Grid.vue'
 import Notes from './components/Notes.vue'
-import Divider from 'primevue/divider';
+
+import Button from 'primevue/button';
+
 
 const selected = ref({ notes: [], card: {}, isCard: false });
 
@@ -26,7 +28,7 @@ function selectNote(note) {
     }
 }
 
-function selectCard(card, index) {
+function selectCard(card) {
     if (selected.value.card.name == card.name) {
         resetSelection();
     } else {
@@ -42,6 +44,7 @@ function selectCard(card, index) {
             <div v-if="!selected.notes.length">Select a note or box.</div>
             <div v-else-if="selected.isCard">Learn about {{selected.card.name}}</div>
             <div v-else>Learn about {{selected.notes.join(", ")}} notes.</div>
+            <Button v-show="selected.notes.length" @click="resetSelection()">Clear</Button>
         </div>
         <div class="grid">
             <div class="col-6">
