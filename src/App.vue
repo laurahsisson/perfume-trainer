@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import Grid from './components/Grid.vue'
 import Notes from './components/Notes.vue'
+import Navbar from './components/Navbar.vue'
 
 import Button from 'primevue/button';
 
@@ -40,28 +41,7 @@ function selectCard(card) {
 </script>
 <template>
     <div class="surface-ground" style="width: 80em;">
-        <div class="grid grid-nogutter">
-            <div class="col-4">
-                <div class="border-solid text-center">
-                    HELLO
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="border-solid text-center">
-                    MIDDLE
-                </div>
-            </div>
-            <div class="col-4">
-                <div class="border-solid text-center">
-                    RIGHT
-                </div>
-            </div>
-        </div>
-        <div class="grid" style="background-color: red;">
-            <!-- <div class="col-4" style="background-color:green;">Train</div>
-        <div class="col-4" style="background-color:blue;">Test</div>
-        <div class="col-4" style="background-color:green;">Edit</div> -->
-        </div>
+        <Navbar/>
         <div class="text-900 font-bold text-6xl mb-4 text-center">
             <div v-if="!selected.notes.length">Select a note or box.</div>
             <div v-else-if="selected.isCard">Learn about {{selected.card.name}}</div>
@@ -72,14 +52,14 @@ function selectCard(card) {
             <div class="col-6">
                 <div class="p-3 h-full">
                     <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                        <Notes @select-note="selectNote" :selected="selected"></Notes>
+                        <Notes @select-note="selectNote" :selected="selected"/>
                     </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="p-3 h-full">
                     <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                        <Grid @select-card="selectCard" :selected="selected"></Grid>
+                        <Grid @select-card="selectCard" :selected="selected"/>
                     </div>
                 </div>
             </div>
