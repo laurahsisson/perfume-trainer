@@ -40,6 +40,28 @@ function selectCard(card) {
 </script>
 <template>
     <div class="surface-ground" style="width: 80em;">
+        <div class="grid grid-nogutter">
+            <div class="col-4">
+                <div class="border-solid text-center">
+                    HELLO
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="border-solid text-center">
+                    MIDDLE
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="border-solid text-center">
+                    RIGHT
+                </div>
+            </div>
+        </div>
+        <div class="grid" style="background-color: red;">
+            <!-- <div class="col-4" style="background-color:green;">Train</div>
+        <div class="col-4" style="background-color:blue;">Test</div>
+        <div class="col-4" style="background-color:green;">Edit</div> -->
+        </div>
         <div class="text-900 font-bold text-6xl mb-4 text-center">
             <div v-if="!selected.notes.length">Select a note or box.</div>
             <div v-else-if="selected.isCard">Learn about {{selected.card.name}}</div>
