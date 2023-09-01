@@ -3,24 +3,27 @@ import { ref } from 'vue'
 
 import Menubar from 'primevue/menubar';
 
-function setLanguage(event) {
-  const {label} = event.item;
-  console.log(label);
+const emit = defineEmits(['select-mode'])
+const props = defineProps(['modes'])
+
+function setMode(event) {
+    const { label } = event.item;
+    emit('select-mode', label)
 }
 
 const items = ref([{
-        label: 'Test',
-        command: setLanguage,
+        label: props.modes.Train,
+        command: setMode,
         icon: 'pi pi-fw pi-power-off'
     },
     {
-        label: 'Learn',
-        command: setLanguage,
+        label: props.modes.Test,
+        command: setMode,
         icon: 'pi pi-fw pi-power-off'
     },
     {
-        label: 'Edit',
-        command: setLanguage,
+        label: props.modes.Edit,
+        command: setMode,
         icon: 'pi pi-fw pi-power-off'
     }
 ]);

@@ -2,7 +2,7 @@
 import Button from 'primevue/button';
 
 defineEmits(['select-card'])
-defineProps(['selected'])
+const props = defineProps(['selected'])
 
 // const cards = [
 //     { name: "Freesia", notes: ["Floral", "Fruity"] },
@@ -29,21 +29,21 @@ const cards = [
     { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
 ]
 
-function notesMatches(selected, card) {
+function notesMatches(card) {
     for (var i = card.notes.length - 1; i >= 0; i--) {
-        if (selected.notes.includes(card.notes[i])) {
+        if (props.selected.notes.includes(card.notes[i])) {
             return true;
         }
     }
     return false;
 }
 
-function calculateColor(selected, card, index) {
-    if (selected.isCard) {
-        if (selected.card.name == card.name) {
+function calculateColor(card) {
+    if (props.selected.isCard) {
+        if (props.selected.card.name == card.name) {
             return 'LightGreen';
         }
-    } else if (notesMatches(selected, card)) {
+    } else if (notesMatches(card)) {
         return 'dodgerblue';
     }
     return 'lightgrey';
@@ -52,7 +52,7 @@ function calculateColor(selected, card, index) {
 <template>
     <div class="grid">
         <div class="col-4" v-for="card in cards">
-            <Button text :style="[{ 'background-color':calculateColor(selected,card)}]" @click="$emit('select-card',card,index)" class="w-full"> {{card.name}}</Button>
+            <Button text :style="[{ 'background-color':calculateColor(card)}]" @click="$emit('select-card',card)" class="w-full"> {{card.name}}</Button>
         </div>
     </div>
 </template>

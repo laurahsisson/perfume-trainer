@@ -10,6 +10,14 @@ import Button from 'primevue/button';
 
 const selected = ref({ notes: [], card: {}, isCard: false });
 
+const modes = {
+    Train: "Train",
+    Test: "Test",
+    Edit: "Edit"
+}
+
+const currentMode = ref(modes.Train);
+
 function resetSelection() {
     selected.value.notes = [];
     selected.value.card = {};
@@ -29,6 +37,10 @@ function selectNote(note) {
     }
 }
 
+function selectMode(mode) {
+  currentMode.value = mode;
+}
+
 function selectCard(card) {
     if (selected.value.card.name == card.name) {
         resetSelection();
@@ -41,7 +53,7 @@ function selectCard(card) {
 </script>
 <template>
     <div class="surface-ground" style="width: 80em;">
-        <Navbar/>
+        <Navbar :modes="modes" @select-mode="selectMode" />
         <div class="text-900 font-bold text-6xl mb-4 text-center">
             <div v-if="!selected.notes.length">Select a note or box.</div>
             <div v-else-if="selected.isCard">Learn about {{selected.card.name}}</div>
@@ -52,14 +64,14 @@ function selectCard(card) {
             <div class="col-6">
                 <div class="p-3 h-full">
                     <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                        <Notes @select-note="selectNote" :selected="selected"/>
+                        <Notes v-if="currentMode == modes.Train" @select-note="selectNote" :selected="selected" />
                     </div>
                 </div>
             </div>
             <div class="col-6">
                 <div class="p-3 h-full">
                     <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                        <Grid @select-card="selectCard" :selected="selected"/>
+                        <Grid @select-card="selectCard" :selected="selected" />
                     </div>
                 </div>
             </div>
