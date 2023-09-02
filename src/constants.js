@@ -11,17 +11,4 @@ const CardState = {
     Danger: 3, // Red alert
 }
 
-function severity(state) {
-    switch (state) {
-        case CardState.Selected:
-            return "info";
-        case CardState.Highlighted:
-            return "success";
-        case CardState.Danger:
-            return "danger";
-        default:
-            return "secondary";
-    }
-}
-
-export { Modes, CardState, severity };
+export { Modes, CardState };

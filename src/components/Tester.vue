@@ -40,6 +40,15 @@ function getNewQuestion() {
     return { answer: newCard.name, note: newNote, choices: newChoices }
 }
 
+function getEmoji() {
+    for (var i = props.notes.length - 1; i >= 0; i--) {
+        if (props.notes[i].note == state.value.note) {
+            return props.notes[i].emoji;
+        }
+    }
+    return "";
+}
+
 function getNewState() {
     const question = getNewQuestion();
 
@@ -85,7 +94,7 @@ function selectCard(box) {
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <div v-if="!state.selected">
                         <p>Please select the</p>
-                        <p class="font-bold">{{state.note}}</p>
+                        <p class="font-bold">{{getEmoji()}} {{state.note}} {{getEmoji()}}</p>
                         <p>fragrance between</p>
                         <p class="font-bold">{{state.choices.join(", ")}}.</p>
                     </div>
@@ -95,7 +104,7 @@ function selectCard(box) {
                         <p>The answer was</p>
                         <p class="font-bold">{{state.answer}}</p>
                         <p>is the</p>
-                        <p class="font-bold">{{state.note}}</p>
+                        <p class="font-bold">{{getEmoji()}} {{state.note}} {{getEmoji()}}</p>
                         <p>fragrance</p>
                         <Button text raised @click="resetState()">Next</Button>
                     </div>

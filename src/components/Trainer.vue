@@ -9,6 +9,8 @@ const props = defineProps(['boxes', 'notes'])
 
 const state = ref(getNewState());
 
+const maxNotes = 3
+
 function getNewState() {
     const newStates = {}
 
@@ -60,12 +62,10 @@ function selectNote(note) {
     const newStates = {}
     props.boxes.forEach((box) => {
         const boxState = (boxMatches(box)) ? CardState.Selected : CardState.Default;
-        console.log(state.value.selectedNotes,box.notes,boxMatches(box));
         newStates[box.name] = { state: boxState, enabled: true };
     });
     state.value.cardStates = newStates;
 }
-
 
 function severity(note) {
     if (!state.value.selectedNotes.includes(note)) {
@@ -76,6 +76,17 @@ function severity(note) {
     } else {
         return "success";
     }
+}
+
+function disabled(note) {
+    // If a card is selected, or there is space for more notes
+    // the notes are not disabled.
+    if (state.value.card || state.value.selectedNotes.length < maxNotes) {
+        return false;
+    }
+    // Otherwise, only the selected notes are enabled, so that they can 
+    // deselected
+    return !state.value.selectedNotes.includes(note);
 }
 </script>
 <template>
@@ -93,8 +104,8 @@ function severity(note) {
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <div class="flex flex-column">
-                        <Button raised class="flex text-2xl" v-for="n in notes" :text="!state.selectedNotes.includes(n.note)" :severity="severity(n.note)" @click="selectNote(n.note)">
-                            {{n.emoji}} {{n.note}} {{n.emoji}}
+                        <Button class="flex text-2xl my-1" v-for="n in notes" outlined :raised="state.selectedNotes.includes(n.note)" :disabled="disabled(n.note)" :severity="severity(n.note)" @click="selectNote(n.note)">
+                            <div v-show="state.selectedNotes.includes(n.note)">{{n.emoji}}</div> {{n.note}} <div v-show="state.selectedNotes.includes(n.note)">{{n.emoji}}</div>
                         </Button>
                     </div>
                 </div>
