@@ -5,10 +5,10 @@ const Modes = {
 }
 
 const CardState = {
-    Active: 0, // Default state
+    Default: 0, // Default state
     Selected: 1, // User actively chooses the card
     Highlighted: 2, // User takes an action that indirectly selects the card
-    Disabled: 3, // Shown in grid, but unable to be interacted with
+    Danger: 3, // Red alert
 }
 
 export { Modes, CardState };

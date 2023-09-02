@@ -1,26 +1,11 @@
 <script setup>
+import { CardState } from '@/constants.js'
+
 import Button from 'primevue/button';
 
 defineEmits(['select-card'])
-const props = defineProps(['cards','selected'])
+const props = defineProps(['boxes', 'states'])
 
-// const cards = [
-//     { name: "Freesia", notes: ["Floral", "Fruity"] },
-//     { name: "Caramel", notes: ["Amber", "Sweet"] },
-//     { name: "Pepper", notes: ["Spicy"] },
-//     { name: "Apple", notes: ["Fruity"] }
-// ]
-
-
-
-function notesMatches(card) {
-    for (var i = card.notes.length - 1; i >= 0; i--) {
-        if (props.selected.notes.includes(card.notes[i])) {
-            return true;
-        }
-    }
-    return false;
-}
 
 function calculateColor(card) {
     if (props.selected.isCard) {
@@ -32,11 +17,25 @@ function calculateColor(card) {
     }
     return 'lightgrey';
 }
+
+function severity(box) {
+    switch (props.states[box.name].state) {
+        case CardState.Selected:
+            return "info";
+        case CardState.Highlighted:
+            return "success";
+        case CardState.Danger:
+            return "danger";
+        default:
+            return "secondary";
+    }
+}
 </script>
 <template>
     <div class="grid">
-        <div class="col-4" v-for="card in cards">
-            <Button text :style="[{ 'background-color':calculateColor(card)}]" @click="$emit('select-card',card)" class="w-full"> {{card.name}}</Button>
+        <div class="col-4" v-for="box in boxes">
+            <Button text raised :disabled="!states[box.name].enabled" :severity="severity(box)" @click="$emit('select-card',box.name)" class="w-full"> {{box.name}} </Button>
+            <!-- <Button text :style="[{ 'background-color':calculateColor(card)}]" @click="$emit('select-card',card)" class="w-full"> {{card.name}}</Button> -->
         </div>
     </div>
 </template>
