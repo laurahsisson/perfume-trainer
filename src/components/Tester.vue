@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import { CardState } from '@/constants.js'
 
+import Button from 'primevue/button';
 import Grid from '@/components/Grid.vue'
 
 
@@ -10,7 +11,7 @@ const props = defineProps(['boxes', 'notes'])
 const choiceCount = 3
 const choiceRetries = 15
 
-const state = ref(resetState());
+const state = ref(getNewState());
 
 function getRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -39,7 +40,7 @@ function getNewQuestion() {
     return { answer: newCard.name, note: newNote, choices: newChoices }
 }
 
-function resetState() {
+function getNewState() {
     const question = getNewQuestion();
 
     const newStates = {}
@@ -52,10 +53,16 @@ function resetState() {
         }
     });
 
-    return { cardStates: newStates, answer: question.answer, note: question.note, choices: question.choices };
+    return { cardStates: newStates, answer: question.answer, note: question.note, choices: question.choices, selected: "" };
+}
+
+function resetState() {
+    state.value = getNewState()
 }
 
 function selectCard(name) {
+    state.value.selected = name;
+
     state.value.choices.forEach((name) => {
         state.value.cardStates[name] = { state: CardState.Default, enabled: false }
     });
@@ -76,8 +83,22 @@ function selectCard(name) {
         <div class="col-6">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                    Please select the {{state.note}} fragrance between {{state.choices.join(", ")}}.
-                    {{state}}
+                    <div v-if="!state.selected">
+                        <p>Please select the</p>
+                        <p class="font-bold">{{state.note}}</p>
+                        <p>fragrance between</p>
+                        <p class="font-bold">{{state.choices.join(", ")}}.</p>
+                    </div>
+                    <div v-else>
+                        <p>Your choice was</p>
+                        <p class="font-bold">{{(state.selected == state.answer) ? "correct" : "incorrect"}}.</p>
+                        <p>The answer was</p>
+                        <p class="font-bold">{{state.answer}}</p>
+                        <p>is the</p>
+                        <p class="font-bold">{{state.note}}</p>
+                        <p>fragrance</p>
+                        <Button text raised @click="resetState()">Next</Button>
+                    </div>
                 </div>
             </div>
         </div>
