@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 import Tester from '@/components/Tester.vue'
+import Trainer from '@/components/Trainer.vue'
 import Navbar from '@/components/Navbar.vue'
 
 const modes = {
@@ -49,7 +50,8 @@ function selectMode(mode) {
 <template>
     <div class="surface-ground" style="width: 80em;">
         <Navbar :modes="modes" @select-mode="selectMode" />
-        <Tester :notes="notes" :boxes="boxes" />
+        <Tester v-if="currentMode==modes.Test" :notes="notes" :boxes="boxes" />
+        <Trainer v-if="currentMode==modes.Train" :notes="notes" :boxes="boxes" />
     </div>
 </template>
 <style scoped>

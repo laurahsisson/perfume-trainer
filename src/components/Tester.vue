@@ -60,17 +60,17 @@ function resetState() {
     state.value = getNewState()
 }
 
-function selectCard(name) {
-    state.value.selected = name;
+function selectCard(box) {
+    state.value.selected = box.name;
 
     state.value.choices.forEach((name) => {
         state.value.cardStates[name] = { state: CardState.Default, enabled: false }
     });
 
-    if (name == state.value.answer) {
-        state.value.cardStates[name] = { state: CardState.Highlighted, enabled: false }
+    if (box.name == state.value.answer) {
+        state.value.cardStates[box.name] = { state: CardState.Highlighted, enabled: false }
     } else {
-        state.value.cardStates[name] = { state: CardState.Danger, enabled: false }
+        state.value.cardStates[box.name] = { state: CardState.Danger, enabled: false }
         state.value.cardStates[state.value.answer] = { state: CardState.Highlighted, enabled: false }
     }
 }
@@ -105,7 +105,6 @@ function selectCard(name) {
         <div class="col-6">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                    <!-- {{state}} -->
                     <Grid @select-card="selectCard" :boxes="boxes" :states="state.cardStates" />
                 </div>
             </div>

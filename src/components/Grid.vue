@@ -1,5 +1,5 @@
 <script setup>
-import { CardState } from '@/constants.js'
+import { CardState, severity } from '@/constants.js'
 
 import Button from 'primevue/button';
 
@@ -17,25 +17,11 @@ function calculateColor(card) {
     }
     return 'lightgrey';
 }
-
-function severity(box) {
-    switch (props.states[box.name].state) {
-        case CardState.Selected:
-            return "info";
-        case CardState.Highlighted:
-            return "success";
-        case CardState.Danger:
-            return "danger";
-        default:
-            return "secondary";
-    }
-}
 </script>
 <template>
     <div class="grid">
         <div class="col-4" v-for="box in boxes">
-            <Button text raised :disabled="!states[box.name].enabled" :severity="severity(box)" @click="$emit('select-card',box.name)" class="w-full"> {{box.name}} </Button>
-            <!-- <Button text :style="[{ 'background-color':calculateColor(card)}]" @click="$emit('select-card',card)" class="w-full"> {{card.name}}</Button> -->
+            <Button outlined :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full"> {{box.name}} </Button>
         </div>
     </div>
 </template>
