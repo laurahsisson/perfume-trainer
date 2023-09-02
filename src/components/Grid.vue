@@ -2,7 +2,7 @@
 import Button from 'primevue/button';
 
 defineEmits(['select-card'])
-const props = defineProps(['selected'])
+const props = defineProps(['cards','selected'])
 
 // const cards = [
 //     { name: "Freesia", notes: ["Floral", "Fruity"] },
@@ -11,23 +11,7 @@ const props = defineProps(['selected'])
 //     { name: "Apple", notes: ["Fruity"] }
 // ]
 
-const cards = [
-    { name: 'Musk', notes: ['Floral', 'Fruity', 'Fresh'] },
-    { name: 'Bergamot', notes: ['Citrus', 'Green', 'Woody'] },
-    { name: 'Amber', notes: ['Warm', 'Woody', 'Citrus'] },
-    { name: 'Sandalwood', notes: ['Warm', 'Woody', 'Sweet'] },
-    { name: 'Patchouli', notes: ['Green', 'Woody', 'Citrus'] },
-    { name: 'Vanilla', notes: ['Warm', 'Fruity', 'Floral'] },
-    { name: 'Jasmine', notes: ['Floral', 'Fruity', 'Green'] },
-    { name: 'Cedarwood', notes: ['Woody', 'Green', 'Sweet'] },
-    { name: 'Rose', notes: ['Floral', 'Fruity', 'Green'] },
-    { name: 'Vetiver', notes: ['Green', 'Woody', 'Sweet'] },
-    { name: 'Mandarin', notes: ['Floral', 'Fresh', 'Citrus'] },
-    { name: 'Lemon', notes: ['Citrus', 'Sweet', 'Woody'] },
-    { name: 'Tonka Bean', notes: ['Warm', 'Sweet', 'Woody'] },
-    { name: 'Iris', notes: ['Green', 'Warm', 'Floral'] },
-    { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
-]
+
 
 function notesMatches(card) {
     for (var i = card.notes.length - 1; i >= 0; i--) {

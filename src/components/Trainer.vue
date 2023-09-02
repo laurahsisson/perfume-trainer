@@ -2,19 +2,8 @@
 import Button from 'primevue/button';
 
 defineEmits(['select-note'])
-const props = defineProps(['selected'])
+const props = defineProps(['notes','selected'])
 
-const notes = [
-    { emoji: "🍋", note: "Citrus" },
-    { emoji: "🌳", note: "Woody" },
-    { emoji: "🌶️", note: "Spicy" },
-    { emoji: "💧", note: "Fresh" },
-    { emoji: "🌼", note: "Floral" },
-    { emoji: "🍎", note: "Fruity" },
-    { emoji: "🌿", note: "Green" },
-    { emoji: "🎂", note: "Sweet" },
-    { emoji: "🍯", note: "Warm" },
-]
 </script>
 
 <template>
