@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 import Tester from '@/components/Tester.vue'
 import Trainer from '@/components/Trainer.vue'
+import Editor from '@/components/Editor.vue'
 import Navbar from '@/components/Navbar.vue'
 
 const modes = {
@@ -41,7 +42,7 @@ const boxes = [
     { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
 ]
 
-const currentMode = ref(modes.Train);
+const currentMode = ref(modes.Edit);
 
 function selectMode(mode) {
     currentMode.value = mode;
@@ -52,6 +53,7 @@ function selectMode(mode) {
         <Navbar :modes="modes" @select-mode="selectMode" />
         <Tester v-if="currentMode==modes.Test" :notes="notes" :boxes="boxes" />
         <Trainer v-if="currentMode==modes.Train" :notes="notes" :boxes="boxes" />
+        <Editor v-if="currentMode==modes.Edit" :notes="notes" :boxes="boxes" />
     </div>
 </template>
 <style scoped>

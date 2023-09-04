@@ -7,6 +7,7 @@ import App from './App.vue'
 
 import "primevue/resources/themes/lara-light-indigo/theme.css";
 import '/node_modules/primeflex/primeflex.css'   
+import '/node_modules/primeicons/primeicons.css';
 
 const app = createApp(App);
 
