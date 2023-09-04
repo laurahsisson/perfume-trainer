@@ -11,4 +11,12 @@ const CardState = {
     Danger: 3, // Red alert
 }
 
-export { Modes, CardState };
+function deepClone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+function deepEquals(obj1,obj2) {
+    return JSON.stringify(obj1) === JSON.stringify(obj2);
+}
+
+export { Modes, CardState, deepClone, deepEquals};

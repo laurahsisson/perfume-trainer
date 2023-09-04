@@ -6,13 +6,15 @@ import Trainer from '@/components/Trainer.vue'
 import Editor from '@/components/Editor.vue'
 import Navbar from '@/components/Navbar.vue'
 
+import {deepClone} from '@/constants.js'
+
 const modes = {
     Train: "Train",
     Test: "Test",
     Edit: "Edit"
 }
 
-const notes = [
+const notes = ref([
     { emoji: "🍋", note: "Citrus" },
     { emoji: "🌳", note: "Woody" },
     { emoji: "🌶️", note: "Spicy" },
@@ -22,9 +24,9 @@ const notes = [
     { emoji: "🌿", note: "Green" },
     { emoji: "🎂", note: "Sweet" },
     { emoji: "🍯", note: "Warm" },
-]
+]);
 
-const boxes = [
+const boxes = ref([
     { name: 'Musk', notes: ['Floral', 'Fruity', 'Fresh'] },
     { name: 'Bergamot', notes: ['Citrus', 'Green', 'Woody'] },
     { name: 'Amber', notes: ['Warm', 'Woody', 'Citrus'] },
@@ -40,20 +42,38 @@ const boxes = [
     { name: 'Tonka Bean', notes: ['Warm', 'Sweet', 'Woody'] },
     { name: 'Iris', notes: ['Green', 'Warm', 'Floral'] },
     { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
-]
+]);
 
 const currentMode = ref(modes.Edit);
 
 function selectMode(mode) {
     currentMode.value = mode;
 }
+
+function updateBoxes(data) {
+    boxes.value = deepClone(data);
+    const newNotesSet = new Set();
+    boxes.value.forEach((box) => {
+        box.notes.forEach((note) => {
+            newNotesSet.add(note);
+        });
+    });
+
+    const newNotes = [];
+    newNotesSet.forEach((n) => {
+        newNotes.push({ emoji: "🌶️", note: n });
+    });
+    notes.value = newNotes;
+    console.log(notes);
+}
+
 </script>
 <template>
     <div class="surface-ground" style="width: 80em;">
         <Navbar :modes="modes" @select-mode="selectMode" />
         <Tester v-if="currentMode==modes.Test" :notes="notes" :boxes="boxes" />
         <Trainer v-if="currentMode==modes.Train" :notes="notes" :boxes="boxes" />
-        <Editor v-if="currentMode==modes.Edit" :notes="notes" :boxes="boxes" />
+        <Editor v-if="currentMode==modes.Edit" @update="updateBoxes" v-model:boxes="boxes" />
     </div>
 </template>
 <style scoped>
