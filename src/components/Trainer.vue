@@ -109,8 +109,8 @@ function disabled(note) {
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <div class="flex flex-column">
-                        <Button class="flex text-2xl my-1" v-for="n in notes" outlined :raised="state.selectedNotes.includes(n.note)" :disabled="disabled(n.note)" :severity="severity(n.note)" @click="selectNote(n.note)">
-                            <div v-show="state.selectedNotes.includes(n.note)">{{n.emoji}}</div> {{n.note}} <div v-show="state.selectedNotes.includes(n.note)">{{n.emoji}}</div>
+                        <Button class="flex text-2xl my-1" v-for="note in notes" outlined :raised="state.selectedNotes.includes(note)" :disabled="disabled(note)" :severity="severity(note)" @click="selectNote(note)" :class="{'font-semibold': state.selectedNotes.includes(note)}">
+                            {{note}}
                         </Button>
                     </div>
                 </div>

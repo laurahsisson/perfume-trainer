@@ -15,15 +15,15 @@ const modes = {
 }
 
 const notes = ref([
-    { emoji: "🍋", note: "Citrus" },
-    { emoji: "🌳", note: "Woody" },
-    { emoji: "🌶️", note: "Spicy" },
-    { emoji: "💧", note: "Fresh" },
-    { emoji: "🌼", note: "Floral" },
-    { emoji: "🍎", note: "Fruity" },
-    { emoji: "🌿", note: "Green" },
-    { emoji: "🎂", note: "Sweet" },
-    { emoji: "🍯", note: "Warm" },
+    "Citrus",
+    "Woody",
+    "Spicy",
+    "Fresh",
+    "Floral",
+    "Fruity",
+    "Green",
+    "Sweet",
+    "Warm",
 ]);
 
 const boxes = ref([
@@ -61,10 +61,9 @@ function updateBoxes(data) {
 
     const newNotes = [];
     newNotesSet.forEach((n) => {
-        newNotes.push({ emoji: "🌶️", note: n });
+        newNotes.push(n);
     });
     notes.value = newNotes;
-    console.log(notes);
 }
 
 </script>

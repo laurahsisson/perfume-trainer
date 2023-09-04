@@ -22,7 +22,7 @@ function severity(state) {
 <template>
     <div class="grid">
         <div class="col-4" v-for="box in boxes">
-            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full"> {{box.name}} </Button>
+            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full" :class="{'font-semibold': states[box.name].state!=CardState.Default}"> {{box.name}} </Button>
         </div>
     </div>
 </template>
