@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+    import { ref } from 'vue'
 
 import Button from 'primevue/button';
 import Card from 'primevue/card';
@@ -9,6 +9,7 @@ import Chips from 'primevue/chips';
 import ColumnGroup from 'primevue/columngroup'; // optional
 import Row from 'primevue/row'; // optional
 import Panel from 'primevue/panel';
+import InputText from 'primevue/inputtext';
 
 import { deepClone, deepEquals } from "@/constants.js"
 
@@ -16,6 +17,7 @@ const props = defineProps(['boxes']);
 defineEmits(['update']);
 
 const data = ref(deepClone(props.boxes));
+const newName = ref("");
 
 function revert() {
     data.value = deepClone(props.boxes);
@@ -36,6 +38,12 @@ function switchBy(idx, incr) {
     data.value[idx + incr] = data.value[idx];
     data.value[idx] = temp;
 }
+
+function add() {
+    data.value.unshift({name:newName.value,notes:[]});
+    newName.value = "";
+}
+
 </script>
 <template>
     <div class="text-900 font-bold text-6xl mb-4 text-center">
@@ -48,6 +56,10 @@ function switchBy(idx, incr) {
     </div>
     <div class="p-3 h-full">
         <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
+            <div class="my-2">
+                <InputText placeholder="Label" type="text" v-model="newName" />
+                <Button severity="success" rounded icon="pi pi-plus" @click="add()" />
+            </div>
             <div class="grid">
                 <div class="col-4" v-for="(box,i) in data">
                     <Card class="border border-solid">
