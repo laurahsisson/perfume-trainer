@@ -83,22 +83,24 @@ function selectCard(box) {
         <div class="col-6">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
-                    <div v-if="!state.selected">
-                        <p>Please select the</p>
-                        <p class="font-bold">{{state.note}}</p>
-                        <p>fragrance between</p>
-                        <p class="font-bold">{{state.choices.join(", ")}}.</p>
-                    </div>
-                    <div v-else>
-                        <p>Your choice was</p>
-                        <p class="font-bold">{{(state.selected == state.answer) ? "correct" : "incorrect"}}.</p>
-                        <p>The answer was</p>
-                        <p class="font-bold">{{state.answer}}</p>
-                        <p>is the</p>
-                        <p class="font-bold">{{state.note}}</p>
-                        <p>fragrance</p>
-                        <Button text raised @click="resetState()">Next</Button>
-                    </div>
+                    <p class="text-xl">
+                        <div v-if="!state.selected">
+                            <p>Please select the</p>
+                            <p class="font-bold">{{state.note}}</p>
+                            <p>fragrance between</p>
+                            <p class="font-bold">{{state.choices.join(", ")}}.</p>
+                        </div>
+                        <div v-else>
+                            <p>Your choice was</p>
+                            <p class="font-bold">{{(state.selected == state.answer) ? "correct" : "incorrect"}}.</p>
+                            <p>The answer was</p>
+                            <p class="font-bold">{{state.answer}}</p>
+                            <p>is the</p>
+                            <p class="font-bold">{{state.note}}</p>
+                            <p>fragrance</p>
+                            <Button text raised @click="resetState()">Next</Button>
+                        </div>
+                    </p>
                 </div>
             </div>
         </div>

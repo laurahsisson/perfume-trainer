@@ -93,14 +93,18 @@ function disabled(note) {
     // deselected
     return !state.value.selectedNotes.includes(note);
 }
+
+function title() {
+    return "text-900 font-bold text-6xl mb-4 text-center"
+}
 </script>
 <template>
-    <div class="text-900 font-bold text-6xl mb-4 text-center">
-        <div v-if="!state.selectedNotes.length">Select a note or box.</div>
+    <div :class="title()">
+        <div :class="title()" v-if="!state.selectedNotes.length">Select a note or box.</div>
         <div v-else>
-            <div v-if="state.card">Learn about {{state.card}}
+            <div  :class="title()" v-if="state.card">Learn about {{state.card}}
             </div>
-            <div v-else>Learn about {{state.selectedNotes.join(", ")}} notes.</div>
+            <div  :class="title()" v-else>Learn about {{state.selectedNotes.join(", ")}} notes.</div>
         </div>
         <Button @click="resetState()" :disabled="!state.selectedNotes.length">Clear</Button>
     </div>

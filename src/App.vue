@@ -44,7 +44,7 @@ const boxes = ref([
     { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
 ]);
 
-const currentMode = ref(modes.Edit);
+const currentMode = ref(modes.Train);
 
 function selectMode(mode) {
     currentMode.value = mode;
@@ -68,7 +68,7 @@ function updateBoxes(data) {
 
 </script>
 <template>
-    <div class="surface-ground" style="width: 80em;">
+    <div class="surface-ground">
         <Navbar :modes="modes" @select-mode="selectMode" />
         <Tester v-if="currentMode==modes.Test" :notes="notes" :boxes="boxes" />
         <Trainer v-if="currentMode==modes.Train" :notes="notes" :boxes="boxes" />

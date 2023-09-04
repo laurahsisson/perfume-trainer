@@ -1,10 +1,14 @@
 <script setup>
+import { ref } from 'vue'
 import { CardState } from '@/constants.js'
 
 import Button from 'primevue/button';
+import Checkbox from 'primevue/checkbox';
 
 defineEmits(['select-card'])
 const props = defineProps(['boxes', 'states'])
+
+const hide = ref(false);
 
 function severity(state) {
     switch (state) {
@@ -20,9 +24,13 @@ function severity(state) {
 }
 </script>
 <template>
+    <div class="mb-2">
+        <Checkbox v-model="hide" inputId="hideLabel" :binary="true" />
+        <label for="hideLabel" class="ml-2"> Hide labels? </label>
+    </div>
     <div class="grid">
-        <div class="col-4" v-for="box in boxes">
-            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full" :class="{'font-semibold': states[box.name].state!=CardState.Default}"> {{box.name}} </Button>
+        <div class="col-4" v-for="(box,i) in boxes">
+            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full" :class="{'font-semibold': states[box.name].state!=CardState.Default}"> {{(hide) ? "Box " + i : box.name}} </Button>
         </div>
     </div>
 </template>
