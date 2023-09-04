@@ -17,6 +17,15 @@ function getRandom(arr) {
     return arr[Math.floor(Math.random() * arr.length)];
 }
 
+function getEmoji(note) {
+    for (var i = props.notes.length - 1; i >= 0; i--) {
+        if (props.notes[i].note == note) {
+            return props.notes[i].emoji;
+        }
+    }
+    return "";
+}
+
 function getNewQuestion() {
     const newCard = getRandom(props.boxes)
     const newNote = getRandom(newCard.notes)
@@ -37,16 +46,9 @@ function getNewQuestion() {
         newChoices.push(potential.name)
     }
 
-    return { answer: newCard.name, note: newNote, choices: newChoices }
-}
+    console.log(getEmoji(newNote));
 
-function getEmoji() {
-    for (var i = props.notes.length - 1; i >= 0; i--) {
-        if (props.notes[i].note == state.value.note) {
-            return props.notes[i].emoji;
-        }
-    }
-    return "";
+    return { answer: newCard.name, note: newNote, emoji: getEmoji(newNote), choices: newChoices }
 }
 
 function getNewState() {
@@ -62,7 +64,7 @@ function getNewState() {
         }
     });
 
-    return { cardStates: newStates, answer: question.answer, note: question.note, choices: question.choices, selected: "" };
+    return { cardStates: newStates, answer: question.answer, note: question.note, emoji: question.emoji, choices: question.choices, selected: "" };
 }
 
 function resetState() {
@@ -94,7 +96,7 @@ function selectCard(box) {
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <div v-if="!state.selected">
                         <p>Please select the</p>
-                        <p class="font-bold">{{getEmoji()}} {{state.note}} {{getEmoji()}}</p>
+                        <p class="font-bold">{{state.emoji}} {{state.note}} {{state.emoji}}</p>
                         <p>fragrance between</p>
                         <p class="font-bold">{{state.choices.join(", ")}}.</p>
                     </div>
@@ -104,7 +106,7 @@ function selectCard(box) {
                         <p>The answer was</p>
                         <p class="font-bold">{{state.answer}}</p>
                         <p>is the</p>
-                        <p class="font-bold">{{getEmoji()}} {{state.note}} {{getEmoji()}}</p>
+                        <p class="font-bold">{{state.emoji}} {{state.note}} {{state.emoji}}</p>
                         <p>fragrance</p>
                         <Button text raised @click="resetState()">Next</Button>
                     </div>
