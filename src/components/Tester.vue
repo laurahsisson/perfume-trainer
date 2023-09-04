@@ -76,10 +76,10 @@ function selectCard(box) {
 }
 </script>
 <template>
-    <div class="text-900 font-bold text-6xl mb-4 text-center">
+    <div class="text-900 font-bold text-6xl text-center">
         Test your knowledge
     </div>
-    <div class="grid">
+    <div class="grid p-3">
         <div class="col-6">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">

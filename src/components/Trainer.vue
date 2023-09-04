@@ -94,21 +94,22 @@ function disabled(note) {
     return !state.value.selectedNotes.includes(note);
 }
 
+// This is truly so hacky but I don't want to add a preprocessor for a single section.
 function title() {
-    return "text-900 font-bold text-6xl mb-4 text-center"
+    return "text-900 font-bold text-6xl"
 }
 </script>
 <template>
-    <div :class="title()">
+    <div class="text-center">
         <div :class="title()" v-if="!state.selectedNotes.length">Select a note or box.</div>
         <div v-else>
             <div  :class="title()" v-if="state.card">Learn about {{state.card}}
             </div>
             <div  :class="title()" v-else>Learn about {{state.selectedNotes.join(", ")}} notes.</div>
         </div>
-        <Button @click="resetState()" :disabled="!state.selectedNotes.length">Clear</Button>
+        <Button class="my-0" @click="resetState()" :disabled="!state.selectedNotes.length">Clear</Button>
     </div>
-    <div class="grid">
+    <div class="grid p-3">
         <div class="col-6">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">

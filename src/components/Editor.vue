@@ -46,7 +46,7 @@ function add() {
 
 </script>
 <template>
-    <div class="text-900 font-bold text-6xl mb-4 text-center">
+    <div class="text-900 font-bold text-6xl text-center">
         Edit the boxes.
     </div>
     <div class="text-center">
@@ -60,7 +60,7 @@ function add() {
                 <InputText placeholder="Label" type="text" v-model="newName" />
                 <Button severity="success" rounded icon="pi pi-plus" @click="add()" />
             </div>
-            <div class="grid">
+            <div class="grid p-3">
                 <div class="col-4" v-for="(box,i) in data">
                     <Card class="border border-solid">
                         <template #title>
