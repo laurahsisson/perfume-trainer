@@ -37,14 +37,20 @@ function selectCard(box) {
     state.value.cardStates[box.name] = { state: CardState.Highlighted, enabled: true }
 }
 
-function boxMatches(box) {
+function calculateState(box) {
+    // If none are selected, state is default.
+    if (!state.value.selectedNotes.length) {
+        return CardState.Default;
+    }
+
+    // Otherwise, the box should contain all selected notes.
     for (var i = 0; i < state.value.selectedNotes.length; i++) {
         const note = state.value.selectedNotes[i];
         if (!box.notes.includes(note)) {
-            return false;
+            return CardState.Default;
         }
     }
-    return true;
+    return CardState.Selected;
 }
 
 function selectNote(note) {
@@ -61,8 +67,7 @@ function selectNote(note) {
 
     const newStates = {}
     props.boxes.forEach((box) => {
-        const boxState = (boxMatches(box)) ? CardState.Selected : CardState.Default;
-        newStates[box.name] = { state: boxState, enabled: true };
+        newStates[box.name] = { state: calculateState(box), enabled: true };
     });
     state.value.cardStates = newStates;
 }
