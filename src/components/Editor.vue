@@ -125,8 +125,8 @@ function makeMenu(idx) {
                             <button v-if='editing!==i' class="p-panel-header-icon p-link mr-2" @click="(event) => this.$refs.menu[i].toggle(event)">
                                 <span class="pi pi-cog"></span>
                             </button>
-                            <Button v-else icon="pi pi-check" text rounded size="small" @click="confirm(i)"/>
-                            <Menu ref="menu" :idx="i"  :model="makeMenu(i)" popup></Menu>
+                            <Button v-else icon="pi pi-check" text rounded size="small" @click="confirm(i)" :disabled="!changeName"/>
+                            <Menu ref="menu" :idx="i" :model="makeMenu(i)" popup></Menu>
                         </template>
                         <p class="m-0">
                             <Chips v-model="box.notes" />
