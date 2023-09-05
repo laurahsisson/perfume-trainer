@@ -107,21 +107,19 @@ function title() {
             </div>
             <div  :class="title()" v-else>Learn about {{state.selectedNotes.join(", ")}} notes.</div>
         </div>
-        <Button class="my-0" @click="resetState()" :disabled="!state.selectedNotes.length">Clear</Button>
+        <Button class="my-0" @click="resetState()" :disabled="!state.selectedNotes.length" label="Clear"/>
     </div>
     <div class="grid p-3">
-        <div class="col-6">
+        <div class="col-4">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <div class="flex flex-column">
-                        <Button class="flex text-2xl my-1" v-for="note in notes" outlined :raised="state.selectedNotes.includes(note)" :disabled="disabled(note)" :severity="severity(note)" @click="selectNote(note)" :class="{'font-semibold': state.selectedNotes.includes(note)}">
-                            {{note}}
-                        </Button>
+                        <Button class="flex text-2xl my-1 text-center" v-for="note in notes" outlined :raised="state.selectedNotes.includes(note)" :disabled="disabled(note)" :severity="severity(note)" @click="selectNote(note)" :class="{'font-semibold': state.selectedNotes.includes(note)}" :label="note"/>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <Grid @select-card="selectCard" :boxes="boxes" :states="state.cardStates" />

@@ -44,7 +44,7 @@ const boxes = ref([
     { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
 ]);
 
-const currentMode = ref(modes.Train);
+const currentMode = ref(modes.Edit);
 
 function selectMode(mode) {
     currentMode.value = mode;

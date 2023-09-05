@@ -80,7 +80,7 @@ function selectCard(box) {
         Test your knowledge
     </div>
     <div class="grid p-3">
-        <div class="col-6">
+        <div class="col-4">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <p class="text-xl">
@@ -98,13 +98,13 @@ function selectCard(box) {
                             <p>is the</p>
                             <p class="font-bold">{{state.note}}</p>
                             <p>fragrance</p>
-                            <Button text raised @click="resetState()">Next</Button>
+                            <Button text raised @click="resetState()" label="Next"/>
                         </div>
                     </p>
                 </div>
             </div>
         </div>
-        <div class="col-6">
+        <div class="col-8">
             <div class="p-3 h-full">
                 <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
                     <Grid @select-card="selectCard" :boxes="boxes" :states="state.cardStates" />

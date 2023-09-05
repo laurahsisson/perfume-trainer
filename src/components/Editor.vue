@@ -5,6 +5,7 @@ import Button from 'primevue/button';
 import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Divider from 'primevue/divider';
 import Chips from 'primevue/chips';
 import ColumnGroup from 'primevue/columngroup'; // optional
 import Row from 'primevue/row'; // optional
@@ -57,22 +58,21 @@ function add() {
     <div class="p-3 h-full">
         <div class="shadow-2 p-3 surface-card" style="border-radius: 6px">
             <div class="my-2">
-                <InputText placeholder="Label" type="text" v-model="newName" />
+                <InputText placeholder="Box Label" type="text" v-model="newName" />
                 <Button severity="success" rounded icon="pi pi-plus" @click="add()" />
             </div>
             <div class="grid p-3">
-                <div class="col-4" v-for="(box,i) in data">
-                    <Card class="border border-solid">
-                        <template #title>
-                            <Button icon="pi pi-times" severity="danger" text rounded aria-label="Cancel" @click="remove(box)" />
-                            {{box.name}}
-                            <Button :disabled="i==0" @click="switchBy(i,-1)" icon="pi pi-sort-up" severity="secondary" text rounded aria-label="Up" />
-                            <Button :disabled="i==data.length-1" @click="switchBy(i,1)" icon="pi pi-sort-down" severity="secondary" text rounded aria-label="Down" />
+                <div class="col-3" v-for="(box,i) in data">
+                    <Panel :header="box.name">
+                        <template #icons>
+                            <Button icon="pi pi-times" severity="danger" text rounded size="small" aria-label="Delete" @click="remove(box)" />
+                            <Button :disabled="i==0" @click="switchBy(i,-1)" icon="pi pi-sort-up" severity="secondary" text rounded size="small" aria-label="Up" />
+                            <Button :disabled="i==data.length-1" @click="switchBy(i,1)" icon="pi pi-sort-down" severity="secondary" text rounded size="small" aria-label="Down" />
                         </template>
-                        <template #content>
-                            <Chips class="border-none" v-model="box.notes" />
-                        </template>
-                    </Card>
+                        <p class="m-0">
+                            <Chips v-model="box.notes" />
+                        </p>
+                    </Panel>
                 </div>
             </div>
         </div>

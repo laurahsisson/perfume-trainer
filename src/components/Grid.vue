@@ -29,8 +29,8 @@ function severity(state) {
         <label for="hideLabel" class="ml-2"> Hide labels? </label>
     </div>
     <div class="grid">
-        <div class="col-4" v-for="(box,i) in boxes">
-            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full" :class="{'font-semibold': states[box.name].state!=CardState.Default}"> {{(hide) ? "Box " + i : box.name}} </Button>
+        <div class="col-3" v-for="(box,i) in boxes">
+            <Button outlined :raised="states[box.name].state!=CardState.Default" :disabled="!states[box.name].enabled" :severity="severity(states[box.name].state)" @click="$emit('select-card',box)" class="w-full" :class="{'font-semibold': states[box.name].state!=CardState.Default}" :label="(hide) ? 'Box ' + i : box.name"/>
         </div>
     </div>
 </template>
