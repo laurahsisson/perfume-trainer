@@ -5,6 +5,7 @@ import Button from 'primevue/button';
 import Card from 'primevue/card';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import Menu from 'primevue/menu';
 import Divider from 'primevue/divider';
 import Chips from 'primevue/chips';
 import ColumnGroup from 'primevue/columngroup'; // optional
@@ -18,7 +19,14 @@ const props = defineProps(['boxes']);
 defineEmits(['update']);
 
 const data = ref(deepClone(props.boxes));
+// For adding a new box
 const newName = ref("");
+
+const header = "<b>Hello</b>";
+
+// For editing an existing box
+const editing = ref(-1);
+const changeName = ref("");
 
 function revert() {
     data.value = deepClone(props.boxes);
@@ -45,6 +53,51 @@ function add() {
     newName.value = "";
 }
 
+function confirm(idx) {
+    editing.value = -1;
+    data.value[idx].name = changeName.value;
+    changeName.value = "";
+}
+
+// THINKING WITH CLOSURES.
+function makeMenu(idx) {
+    return [{
+        label: 'Rename',
+        icon: 'pi pi-pencil',
+        command: (ev) => {
+            editing.value = idx;
+        }
+    },
+    {
+        label: 'Delete',
+        icon: 'pi pi-times',
+        command: (ev) => {
+            remove(i);
+        }
+    },
+    {
+        label: "Move Up",
+        icon: 'pi pi-sort-up',
+        command: (ev) => {
+            switchBy(idx, -1)
+        },
+        disabled: (ev) => {
+            return idx === 0;
+        },
+    },
+    {
+        label: "Move Down",
+        icon: 'pi pi-sort-down',
+        command: (ev) => {
+            switchBy(idx, -1)
+        },
+        disabled: (ev) => {
+            return idx === data.value.length-1
+        },
+    }];
+}
+
+
 </script>
 <template>
     <div class="text-900 font-bold text-6xl text-center">
@@ -63,11 +116,17 @@ function add() {
             </div>
             <div class="grid p-3">
                 <div class="col-3" v-for="(box,i) in data">
-                    <Panel :header="box.name">
+                    <Panel>
+                        <template #header>
+                            <InputText v-if="editing===i" type='text' v-model='changeName' class="w-4" />
+                            <div v-else>{{box.name}}</div>
+                        </template>
                         <template #icons>
-                            <Button icon="pi pi-times" severity="danger" text rounded size="small" aria-label="Delete" @click="remove(box)" />
-                            <Button :disabled="i==0" @click="switchBy(i,-1)" icon="pi pi-sort-up" severity="secondary" text rounded size="small" aria-label="Up" />
-                            <Button :disabled="i==data.length-1" @click="switchBy(i,1)" icon="pi pi-sort-down" severity="secondary" text rounded size="small" aria-label="Down" />
+                            <button v-if='editing!==i' class="p-panel-header-icon p-link mr-2" @click="(event) => this.$refs.menu[i].toggle(event)">
+                                <span class="pi pi-cog"></span>
+                            </button>
+                            <Button v-else icon="pi pi-check" text rounded size="small" @click="confirm(i)"/>
+                            <Menu ref="menu" :idx="i"  :model="makeMenu(i)" popup></Menu>
                         </template>
                         <p class="m-0">
                             <Chips v-model="box.notes" />
