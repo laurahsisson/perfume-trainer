@@ -77,7 +77,7 @@ function selectCard(box) {
 </script>
 <template>
     <div class="text-900 font-bold text-6xl text-center">
-        Test your knowledge
+        Test your knowledge.
     </div>
     <div class="grid p-3">
         <div class="col-4">

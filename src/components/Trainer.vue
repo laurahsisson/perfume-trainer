@@ -101,7 +101,7 @@ function title() {
 </script>
 <template>
     <div class="text-center">
-        <div :class="title()" v-if="!state.selectedNotes.length">Select a note or box.</div>
+        <div :class="title()" v-if="!state.selectedNotes.length">Select a note or box to learn.</div>
         <div v-else>
             <div  :class="title()" v-if="state.card">Learn about {{state.card}}
             </div>

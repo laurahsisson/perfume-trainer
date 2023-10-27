@@ -101,7 +101,7 @@ function makeMenu(idx) {
 </script>
 <template>
     <div class="text-900 font-bold text-6xl text-center">
-        Edit the boxes.
+        Edit the the display boxes.
     </div>
     <div class="text-center">
         <Button label="Save" :disabled="!hasUnsaved()" @click="$emit('update',data)" />
