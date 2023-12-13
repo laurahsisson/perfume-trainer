@@ -37,19 +37,21 @@ function selectCard(box) {
     state.value.cardStates[box.name] = { state: CardState.Highlighted, enabled: true }
 }
 
-function calculateState(box) {
-    // If none are selected, state is default.
-    if (!state.value.selectedNotes.length) {
-        return CardState.Default;
-    }
-
-    // Otherwise, the box should contain all selected notes.
-    for (var i = 0; i < state.value.selectedNotes.length; i++) {
-        const note = state.value.selectedNotes[i];
+function hasMatch(box,notes) {
+    for (var i = 0; i < notes.length; i++) {
+        const note = notes[i];
         if (!box.notes.includes(note)) {
-            return CardState.Default;
+            return false;
         }
     }
+    return true;
+}
+
+function calculateState(box) {
+    if (!hasMatch(box,state.value.selectedNotes)) {
+        return CardState.Default;
+    }
+    
     return CardState.Selected;
 }
 
@@ -83,15 +85,22 @@ function severity(note) {
     }
 }
 
+function canAdd(note) {
+    const mergedNotes = state.value.selectedNotes.concat([note]);
+    for (var i = 0; i < props.boxes.length; i++) {
+        const box = props.boxes[i];
+        if (hasMatch(box,mergedNotes)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function disabled(note) {
-    // If a card is selected, or there is space for more notes
-    // the notes are not disabled.
-    if (state.value.card || state.value.selectedNotes.length < maxNotes) {
+    if (state.value.card) {
         return false;
     }
-    // Otherwise, only the selected notes are enabled, so that they can 
-    // deselected
-    return !state.value.selectedNotes.includes(note);
+    return !canAdd(note);
 }
 
 // This is truly so hacky but I don't want to add a preprocessor for a single section.
