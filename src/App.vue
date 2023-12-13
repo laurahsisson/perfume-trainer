@@ -6,7 +6,7 @@ import Trainer from '@/components/Trainer.vue'
 import Editor from '@/components/Editor.vue'
 import Navbar from '@/components/Navbar.vue'
 
-import {deepClone} from '@/constants.js'
+import { deepClone } from '@/constants.js'
 
 const modes = {
     Train: "Train",
@@ -23,25 +23,23 @@ const notes = ref([
     "Fruity",
     "Green",
     "Sweet",
-    "Warm",
+    "Musky",
 ]);
 
+
 const boxes = ref([
-    { name: 'Musk', notes: ['Floral', 'Fruity', 'Fresh'] },
-    { name: 'Bergamot', notes: ['Citrus', 'Green', 'Woody'] },
-    { name: 'Amber', notes: ['Warm', 'Woody', 'Citrus'] },
-    { name: 'Sandalwood', notes: ['Warm', 'Woody', 'Sweet'] },
-    { name: 'Patchouli', notes: ['Green', 'Woody', 'Citrus'] },
-    { name: 'Vanilla', notes: ['Warm', 'Fruity', 'Floral'] },
-    { name: 'Jasmine', notes: ['Floral', 'Fruity', 'Green'] },
-    { name: 'Cedarwood', notes: ['Woody', 'Green', 'Sweet'] },
-    { name: 'Rose', notes: ['Floral', 'Fruity', 'Green'] },
-    { name: 'Vetiver', notes: ['Green', 'Woody', 'Sweet'] },
-    { name: 'Mandarin', notes: ['Floral', 'Fresh', 'Citrus'] },
-    { name: 'Lemon', notes: ['Citrus', 'Sweet', 'Woody'] },
-    { name: 'Tonka Bean', notes: ['Warm', 'Sweet', 'Woody'] },
-    { name: 'Iris', notes: ['Green', 'Warm', 'Floral'] },
-    { name: 'Orange Blossom', notes: ['Floral', 'Warm', 'Fresh'] },
+    { name: "Ambrettolide", notes: ["Musky", "Floral"] },
+    { name: "Ambroxan", notes: ["Woody", "Musky", "Fresh"] },
+    { name: "Citral", notes: ["Citrus", "Fruity", "Green"] },
+    { name: "Dihydro Eugenol", notes: ["Spicy", "Fresh"] },
+    { name: "Ethyl Maltol", notes: ["Sweet"] },
+    { name: "Hedione", notes: ["Floral", "Fresh"] },
+    { name: "Hexenyl Cis-3 Acetate", notes: ["Green", "Fruity"] },
+    { name: "Iso E Super", notes: ["Woody", "Floral"] },
+    { name: "Ebanol", notes: ["Woody"] },
+    { name: "Orange Terpenes", notes: ["Citrus", "Fresh"] },
+    { name: "Stemone", notes: ["Green"] },
+    { name: "Velvione", notes: ["Musky"] },
 ]);
 
 const currentMode = ref(modes.Train);
@@ -65,7 +63,6 @@ function updateBoxes(data) {
     });
     notes.value = newNotes;
 }
-
 </script>
 <template>
     <div class="surface-ground">
